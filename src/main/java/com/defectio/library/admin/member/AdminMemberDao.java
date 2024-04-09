@@ -27,14 +27,12 @@ public class AdminMemberDao {
 	 * @return
 	 */
 	public boolean isAdminMember(String a_m_id) {
-		System.out.println("[AdminMemberDao] isAdminMember()");
-		
 		String sql = "SELECT COUNT(*) FROM tbl_admin_member "
 				+ "WHERE a_m_id = ?";
 	
 		/**
 		 * [queryForObject 매개변수]
-		 * 	  - sql : SQL문
+		 * 	 - sql : SQL문
 		 *   - Integer.class : 쿼리 실행 후 반환되는 데이터 타입
 		 *   - a_m_id : 관리자가 입력한 아이디 
 		 */
