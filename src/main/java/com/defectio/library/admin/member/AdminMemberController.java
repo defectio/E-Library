@@ -66,7 +66,9 @@ public class AdminMemberController {
 	 * @return
 	 */
 	@PostMapping("/loginConfirm")
-	public String loginConfirm(AdminMemberVo adminMemberVo, HttpSession session) {
+	public String loginConfirm(AdminMemberVo adminMemberVo, 
+			HttpSession session,
+			@RequestParam(defaultValue = "/") String redirectURL) {
 		
 		/**
 		 * 클라이언트에서 넘어오는 a_m_id, a_m_pw가 getter를 통해서 adminMemberVo에 저장됨
@@ -92,7 +94,11 @@ public class AdminMemberController {
 			session.setMaxInactiveInterval(60 * 30);   
 		}
 		
-		return nextPage;
+		if (redirectURL.equals("/")) {
+			return nextPage;
+		} else {
+			return "redirect:"+redirectURL;
+		}
 	}
 	
 	/**

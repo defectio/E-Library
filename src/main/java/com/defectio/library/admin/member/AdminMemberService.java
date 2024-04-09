@@ -38,7 +38,8 @@ public class AdminMemberService {
 		 * isMember : false -> 등록되지 않은 관리자
 		 */
 		if (!isMember) {
-			int result = adminMemberDao.insertAdminAccount(adminMemberVo);
+			int result = adminMemberDao.insertAdminAccountOracle(adminMemberVo);
+//			int result = adminMemberDao.insertAdminAccountMaria(adminMemberVo);
 			
 			if (result > 0) {
 				return ADMIN_ACCOUNT_CREATE_SUCCESS;

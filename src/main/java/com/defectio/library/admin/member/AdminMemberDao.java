@@ -42,11 +42,11 @@ public class AdminMemberDao {
 	}
 	
 	/**
-	 * DB에 관리자 정보를 저장한다.
+	 * Maria DB에 관리자 정보를 저장한다.
 	 * @param adminMemberVo
 	 * @return
 	 */
-	public int insertAdminAccount(AdminMemberVo adminMemberVo) {
+	public int insertAdminAccountMaria(AdminMemberVo adminMemberVo) {
 		
 		List<String> args = new ArrayList<String>();
 		
@@ -87,6 +87,66 @@ public class AdminMemberDao {
 				   sql += "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 			   else 
 				   sql += "VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+			   
+		int result = -1;
+		
+		try {
+			result = jdbcTemplate.update(sql, args.toArray());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Oracle DB에 관리자 정보를 저장한다.
+	 * @param adminMemberVo
+	 * @return
+	 */
+	public int insertAdminAccountOracle(AdminMemberVo adminMemberVo) {
+		
+		List<String> args = new ArrayList<String>();
+		
+		String sql =  "INSERT INTO tbl_admin_member(";
+			   if (adminMemberVo.getA_m_id().equals("super_admin")) {
+				   sql += "a_m_approval, ";
+				   args.add("1");
+			   }
+			   
+			   sql += "a_m_no, ";
+			   
+			   sql += "a_m_id, ";
+			   args.add(adminMemberVo.getA_m_id());
+			   
+			   sql += "a_m_pw, ";
+//			   args.add(adminMemberVo.getA_m_pw());
+			   args.add(passwordEncoder.encode(adminMemberVo.getA_m_pw()));
+			   
+			   sql += "a_m_name, ";
+			   args.add(adminMemberVo.getA_m_name());
+			   
+			   sql += "a_m_gender, ";
+			   args.add(adminMemberVo.getA_m_gender());
+			   
+			   sql += "a_m_part, ";
+			   args.add(adminMemberVo.getA_m_part());
+			   
+			   sql += "a_m_position, ";
+			   args.add(adminMemberVo.getA_m_position());
+			   
+			   sql += "a_m_mail, ";
+			   args.add(adminMemberVo.getA_m_mail());
+			   
+			   sql += "a_m_phone, ";
+			   args.add(adminMemberVo.getA_m_phone());
+			   
+			   sql += "a_m_reg_date, a_m_mod_date) ";
+			   
+			   if (adminMemberVo.getA_m_id().equals("super_admin")) 
+				   sql += "VALUES(?, SQ_ADMIN_MEMBER.NEXTVAL,?, ?, ?, ?, ?, ?, ?, ?, sysdate, sysdate)";
+			   else 
+				   sql += "VALUES(?, SQ_ADMIN_MEMBER.NEXTVAL,?, ?, ?, ?, ?, ?, ?, sysdate, sysdate)";
 			   
 		int result = -1;
 		
