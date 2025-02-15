@@ -77,7 +77,6 @@ public class BookController {
 	
 	/**
 	 * 도서의 상세정보를 조회한다.
-	 * @param b_no
 	 * @param mav
 	 * @return
 	 */
@@ -106,6 +105,13 @@ public class BookController {
 		return mav;
 	}
 
+	/**
+	 * 도서 정보를 수정한다.
+	 * @param book
+	 * @param file
+	 * @param mav
+	 * @return
+	 */
 	@PostMapping("/modifyBookConfirm")
 	public ModelAndView modifyBookConfirm(BookVo book, @RequestParam("file") MultipartFile file, ModelAndView mav) {
 
