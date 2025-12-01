@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="com.office.library.book.BookVo"%>
+<%@page import="com.defectio.library.book.BookVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -87,7 +87,7 @@
 							<td><%=bookVos.get(i).getB_publish_year()%></td>
 							<td><%=bookVos.get(i).getB_isbn()%></td>
 							<td><%=bookVos.get(i).getB_call_number()%></td>
-							<td><%=bookVos.get(i).getB_rental_able()%></td>
+							<td><%=bookVos.get(i).getB_rantal_able()%></td>
 						</tr>
 						<%
 							}
