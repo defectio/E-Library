@@ -2,13 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <link href="<c:url value='/resources/css/admin/include/nav.css' />" rel="stylesheet" type="text/css">
-
 <jsp:include page="./nav_js.jsp" />
-
 <nav>
-	
 	<div id="nav_wrap">
 		
 		<%
@@ -45,13 +41,9 @@
 		%>
 		
 		<div class="search">
-			
 			<form action="<c:url value='/book/admin/searchBookConfirm' />" name="search_book_form" method="get">
 				<input type="text" name="b_name" placeholder="Enter the name of the book you are looking for.">
 				<input type="button" value="search" onclick="searchBookForm();">
 			</form>
-			
 		</div>
-	</div>
-	
 </nav>

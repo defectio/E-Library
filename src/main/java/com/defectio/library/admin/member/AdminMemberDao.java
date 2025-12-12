@@ -56,32 +56,18 @@ public class AdminMemberDao {
 				   args.add("1");
 			   }
 			   
-			   sql += "a_m_id, ";
-			   args.add(adminMemberVo.getA_m_id());
+			   sql += "a_m_id, a_m_pw, a_m_name, a_m_gender, a_m_part, a_m_position, a_m_mail, a_m_phone, a_m_reg_date, a_m_mod_date)";
 			   
-			   sql += "a_m_pw, ";
+			   args.add(adminMemberVo.getA_m_id());
 //			   args.add(adminMemberVo.getA_m_pw());
 			   args.add(passwordEncoder.encode(adminMemberVo.getA_m_pw()));
-			   
-			   sql += "a_m_name, ";
 			   args.add(adminMemberVo.getA_m_name());
-			   
-			   sql += "a_m_gender, ";
 			   args.add(adminMemberVo.getA_m_gender());
-			   
-			   sql += "a_m_part, ";
 			   args.add(adminMemberVo.getA_m_part());
-			   
-			   sql += "a_m_position, ";
 			   args.add(adminMemberVo.getA_m_position());
-			   
-			   sql += "a_m_mail, ";
 			   args.add(adminMemberVo.getA_m_mail());
-			   
-			   sql += "a_m_phone, ";
 			   args.add(adminMemberVo.getA_m_phone());
 			   
-			   sql += "a_m_reg_date, a_m_mod_date) ";
 			   
 			   if (adminMemberVo.getA_m_id().equals("super_admin")) 
 				   sql += "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
