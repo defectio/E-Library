@@ -51,7 +51,9 @@ public class AdminMemberService {
 	}
 	
 	/**
-	 * 로그인 결과를 리턴함
+	 * 로그인 시도하는 AdminMemberVo 객체 정보를 리턴함.
+	 *  - 회원이면 AdminMemberVo 객체 정보 리턴
+	 *  - 회원이 아니면 null 리턴
 	 * @param adminMemberVo
 	 * @return
 	 */
@@ -172,7 +174,6 @@ public class AdminMemberService {
 		 * MimeMessagePreparator 익명 구현 객체
 		 */
 		javaMailSenderImpl.send(new MimeMessagePreparator() {
-			@Override
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				final MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 				
