@@ -104,8 +104,13 @@ public class AdminMemberDao {
 			 *   - adminMemberVo.getA_m_id() : 쿼리문 조회시 adminMemberVo 객체의 id 이용(쿼리문의 ?에 들어가는 값)
 			 */
 			adminMemberVos = jdbcTemplate.query(sql, new RowMapper<AdminMemberVo>() {
-				@Override
+				/**
+				 * RowMapper를 구현한 익명 클래스는 RowMapper의 추상메소드를 구현해야한다 -> mapRow()
+				 *  - ResultSet rs : 데이터베이스에서 조회된 데이터set
+				 *  - int rowNum : 데이터set의 현재 행번
+				 */
 				public AdminMemberVo mapRow(ResultSet rs, int rowNum) throws SQLException {
+					// mapRow()에서 조회된 데이터를 Java 형식으로 변환 -> VO 객체 활용
 					AdminMemberVo adminMemberVo = new AdminMemberVo();
 					
 					adminMemberVo.setA_m_no(rs.getInt("a_m_no"));
@@ -147,7 +152,6 @@ public class AdminMemberDao {
 
 		try {
 			adminMemberVos = jdbcTemplate.query(sql, new RowMapper<AdminMemberVo>() {
-				@Override
 				public AdminMemberVo mapRow(ResultSet rs, int rowNum) throws SQLException {
 					AdminMemberVo adminMemberVo = new AdminMemberVo();
 					
@@ -225,7 +229,6 @@ public class AdminMemberDao {
 		String sql = "SELECT * FROM tbl_admin_member WHERE a_m_no = ?";
 		
 		return jdbcTemplate.queryForObject(sql, new RowMapper<AdminMemberVo> () {
-			@Override
 			public AdminMemberVo mapRow(ResultSet rs, int rowNum) throws SQLException {
 				AdminMemberVo admin = new AdminMemberVo();
 				
@@ -264,7 +267,6 @@ public class AdminMemberDao {
 		 */
 		try {
 			adminMemberVo = jdbcTemplate.queryForObject(sql, args, new RowMapper<AdminMemberVo> () {
-				@Override
 				public AdminMemberVo mapRow(ResultSet rs, int rowNum) throws SQLException {
 					AdminMemberVo admin = new AdminMemberVo();
 					
