@@ -6,7 +6,6 @@
 <jsp:include page="./nav_js.jsp" />
 <nav>
 	<div id="nav_wrap">
-		
 		<%
 		AdminMemberVo loginedAdminMemberVo = (AdminMemberVo) session.getAttribute("loginedAdminMemberVo");
 		if (loginedAdminMemberVo != null) {
