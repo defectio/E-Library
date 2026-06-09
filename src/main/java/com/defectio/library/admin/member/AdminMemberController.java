@@ -21,9 +21,10 @@ public class AdminMemberController {
 	
 	/**
 	 * 회원 가입 페이지로 이동
+	 * 
+	 * @RequestMapping(value = "/createAccountForm", method = RequestMethod.GET) 와 동일 
 	 * @return
 	 */
-//	@RequestMapping(value = "/createAccountForm", method = RequestMethod.GET)
 	@GetMapping("/createAccountForm")
 	public String createAccountForm() {
 		String nextPage = "admin/member/create_account_form";
@@ -33,10 +34,10 @@ public class AdminMemberController {
 	/**
 	 * client에서 회원 가입 클릭 시 회원 가입 처리를 진행한다.
 	 * @param adminMemberVo
+	 * 
+	 * @RequestMapping(value = "/createAccountConfirm", method = RequestMethod.POST) 동
 	 * @return
 	 */
-//	@RequestMapping(value = "/createAccountConfirm", method = RequestMethod.POST)
-	// @RequestMapping과 method를 결합한 어노테이션
 	@PostMapping("/createAccountConfirm")
 	public String createAccountConfirm(AdminMemberVo adminMemberVo) {
 		String nextPage = "admin/member/create_account_ok";

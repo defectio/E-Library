@@ -11,6 +11,7 @@
 		if (loginedAdminMemberVo != null) {
 		%>
 		
+		<%-- 로그인 후 --%>
 		<div class="menu">
 			<ul>
 				<li><a href="<c:url value='/admin/member/logoutConfirm' />">로그아웃</a></li>
@@ -29,6 +30,7 @@
 		<%
 		} else {
 		%>
+		<%-- 로그인 전 --%>
 		<div class="menu">
 			<ul>
 				<li><a href="<c:url value='/admin/member/loginForm' />">로그인</a></li>
