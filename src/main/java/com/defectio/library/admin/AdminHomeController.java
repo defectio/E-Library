@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @RequestMapping("/admin")를 명시하지 않으면 AdminController는 클라이언트의 모든 요청을 처리할 수 있는 컨트롤러가 된다.
  */
 @Controller
+@RequestMapping("/admin")
 public class AdminHomeController {
 
 	/**
