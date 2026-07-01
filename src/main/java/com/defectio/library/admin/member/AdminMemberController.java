@@ -44,6 +44,7 @@ public class AdminMemberController {
 		
 		int result = adminMemberService.createAccountConfirm(adminMemberVo);
 		
+		// 이미 존재하는 ID or 회원가입 실패할 경우, 페이지 변경 
 		if (result <= 0)
 			nextPage = "admin/member/create_account_ng";
 		

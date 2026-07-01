@@ -34,7 +34,7 @@ public class AdminMemberDao {
 		 * [queryForObject 매개변수]
 		 * 	 - sql : SQL문
 		 *   - Integer.class : 쿼리 실행 후 반환되는 데이터 타입
-		 *   - a_m_id : 관리자가 입력한 아이디 
+		 *   - a_m_id : 쿼리에 바인딩되는 값. 관리자가 입력한 아이디 
 		 */
 		int result = jdbcTemplate.queryForObject(sql, Integer.class, a_m_id);
 		
