@@ -91,6 +91,9 @@ public class AdminMemberDao {
 	 * @return
 	 */
 	public AdminMemberVo selectAdmin(AdminMemberVo adminMemberVo) {
+		// a_m_id(id), a_m_approval(승인여부)만 비교하고, 비밀번호는 비교하지 않음.
+		// DB에 저장된 비밀번호는 암호화되어 있기 때문에, 사용자가 입력한 비밀번호(복호화된 문자열)와 비교할 수 없음
+		// 비밀번호를 복호화해서 비교하는 로직 필요
 		String sql =  "SELECT * FROM tbl_admin_member "
 					+ "WHERE a_m_id = ? AND a_m_approval > 0";
 	
@@ -104,6 +107,11 @@ public class AdminMemberDao {
 			 *   - adminMemberVo.getA_m_id() : 쿼리문 조회시 adminMemberVo 객체의 id 이용(쿼리문의 ?에 들어가는 값)
 			 */
 			adminMemberVos = jdbcTemplate.query(sql, new RowMapper<AdminMemberVo>() {
+				/**
+				 * 파라미터
+				 * 	 - rs ; ResultSet(DB에서 조회된 데이터 셋)
+				 *   - rowNum : 현재 행 번호
+				 */
 				@Override
 				public AdminMemberVo mapRow(ResultSet rs, int rowNum) throws SQLException {
 					AdminMemberVo adminMemberVo = new AdminMemberVo();
@@ -125,7 +133,14 @@ public class AdminMemberDao {
 				}
 			}, adminMemberVo.getA_m_id());
 			
-			// pw 일치 검사( client pw, DB pw 비교 -> 일치하지 않으면 list clear
+			// 
+			/**
+			 * matches() : pw 일치 검사
+			 *   - adminMemberVo.getA_m_pw() : 사용자가 입력한 비밀번호, 암호화 되어 있지 않음.
+			 *   - adminMemberVos.get(0).getA_m_pw() : DB에 저장된 암호화된 비밀번호.
+			 *   - 암호화 되지 않은 비밀번호를 암호화하여, DB에 저장된 암호화된 비밀번호와 일치여부를 리턴
+			 *   - client pw, DB pw 비교 -> 일치하지 않으면 list clear
+			 */
 			if (!passwordEncoder.matches(adminMemberVo.getA_m_pw(), adminMemberVos.get(0).getA_m_pw())) {
 				adminMemberVos.clear();
 			}
