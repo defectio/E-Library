@@ -2,11 +2,14 @@ package com.defectio.library.admin.member;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,13 +65,13 @@ public class AdminMemberController {
 	}
 	
 	/**
-	 * 로그인 확인
-	 *   - super_admin / p9AAISxf
+	 * Cookie 방식 로그인 처리
+	 *   - super_admin / 1234
 	 * @param adminMemberVo
 	 * @return
 	 */
 	@PostMapping("/loginConfirm")
-	public String loginConfirm(AdminMemberVo adminMemberVo) {
+	public String loginConfirm(AdminMemberVo adminMemberVo, HttpServletResponse response) {
 		
 		/**
 		 * 클라이언트에서 넘어오는 a_m_id, a_m_pw가 getter를 통해서 adminMemberVo에 저장됨
@@ -78,36 +81,64 @@ public class AdminMemberController {
 //		System.out.println("pw >> "+ adminMemberVo.getA_m_pw());
 //		System.out.println("mail >> "+ adminMemberVo.getA_m_mail());
 		
-		String nextPage = "admin/member/login_ok";
+		String nextPage = "login_ok";
 		
 		AdminMemberVo loginedAdminMemberVo = adminMemberService.loginConfirm(adminMemberVo);
 		
 		// 로그인 시도한 사용자가 없는 경우, 즉 회원이 아닌 경우 리턴 페이지 재정의
 		if (loginedAdminMemberVo == null) {
-			nextPage = "admin/member/login_ng";
+			nextPage = "login_ng";
+		} else {
+			Cookie cookie = new Cookie("loginMember", loginedAdminMemberVo.getA_m_id());
+			cookie.setMaxAge(60 * 30);  // 유효시간 설정(초) : 30분
+			response.addCookie(cookie);  // 생성된 쿠키를 response객체에 추가하여 클라이언트에 전달한다.
 		}
 		
+		// nav.jsp를 include 하기 때문에 redirect로 변경
+		return "redirect:"+nextPage;
+	}
+	
+	/**
+	 *  로그인 성공 페이지 이동
+	 * @return
+	 */
+	@GetMapping("/login_ok")
+	public String loginOk() {
+		String nextPage = "admin/member/login_ok";
+		return nextPage;
+	}
+
+	/**
+	 *  로그인 실패 페이지 이동
+	 * @return
+	 */
+	@GetMapping("/login_ng")
+	public String loginNg() {
+		String nextPage = "admin/member/login_ng";
 		return nextPage;
 	}
 	
 	/**
 	 * 로그아웃
-	 * @param session
+	 * @param loginMember 
+	 * @param response
 	 * @return
 	 */
 	@GetMapping("/logoutConfirm")
-	public String logoutConfirm(HttpSession session) {
-		String nextPage = "redirect:/admin";
-		
+	public String logoutConfirm(@CookieValue(value="loginMember", required=false) String loginMember, HttpServletResponse response) {
 		/**
-		 * 세션 무효화
-		 *   - 세션에 저장된 데이터(loginedAdminMemberVo)를 사용할 수 없게 한다.
-		 *   - 로그인 상태는 해제되고, /admin으로 redirect된다.
-		 *   -> /admin으로 redirect : AdminHomeController의 home() 메소드 호출 : admin/home 페이지 이동
+		 * @CookieValue
+		 * 클라이언트가 서버에 요청을 하면 자동으로 쿠키가 전달된다. 서버에서는 @CookieValue 사용하여 쿠키를 받을 수 있다.
+		 *  - value : 쿠키이름
+		 *  - required : false(쿠키가 필수값이 아님을 선언). required를 명시하지 않으면 쿠키가 없을 경우, 예외가 발생하기 때문에 false로 설정
+		 *  - String loginMember : 클라이언트에서 전달된 쿠키가 loginMember에 저장됨
 		 */
-		session.invalidate();
+		Cookie cookie = new Cookie("loginMember", loginMember);
+		cookie.setMaxAge(0); // 쿠키 유효기간 종료
+
+		response.addCookie(cookie);
 		
-		return nextPage;
+		return "redirect:/admin";
 	}
 	
 	/**
