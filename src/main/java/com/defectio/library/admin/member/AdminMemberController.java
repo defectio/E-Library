@@ -62,14 +62,13 @@ public class AdminMemberController {
 	}
 	
 	/**
-	 * 로그인 확인
-	 *   - super_admin / p9AAISxf
+	 * 로그인 확인 - super_admin / 1234
 	 * @param adminMemberVo
+	 * @param session
 	 * @return
 	 */
 	@PostMapping("/loginConfirm")
-	public String loginConfirm(AdminMemberVo adminMemberVo) {
-		
+	public String loginConfirm(AdminMemberVo adminMemberVo, HttpSession session) {
 		/**
 		 * 클라이언트에서 넘어오는 a_m_id, a_m_pw가 getter를 통해서 adminMemberVo에 저장됨
 		 * 클라이언트에서 넘어오지 않는 a_m_mail은 null이 저장됨
@@ -85,6 +84,13 @@ public class AdminMemberController {
 		// 로그인 시도한 사용자가 없는 경우, 즉 회원이 아닌 경우 리턴 페이지 재정의
 		if (loginedAdminMemberVo == null) {
 			nextPage = "admin/member/login_ng";
+		} else {
+			session.setAttribute("loginedAdminMemberVo", loginedAdminMemberVo);
+			/**
+			 * 세션 유효기간 설정(초) : 30분
+			 * 브라우저가 30분 동안 아무런 동작을 하지 않게 되면 서버의 세션은 종료되고 관리자는 다시 로그인 해야한다.
+			 */
+			session.setMaxInactiveInterval(60 * 30); 
 		}
 		
 		return nextPage;
