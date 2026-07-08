@@ -17,7 +17,7 @@
 				<li><a href="<c:url value='/admin/member/logoutConfirm' />">로그아웃</a></li>
 				<li><a href="<c:url value='/admin/member/modifyAccountForm' />">계정수정</a></li>
 				
-				<c:if test="${loginedAdminMemberVo.a_m_id eq 'super admin'}">
+				<c:if test="${loginedAdminMemberVo.a_m_id eq 'super_admin'}">
 					<li><a href="<c:url value='/admin/member/listupAdmin' />">관리자목록</a></li>
 				</c:if>
 				
