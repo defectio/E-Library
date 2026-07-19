@@ -6,11 +6,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin/member")
@@ -122,7 +122,7 @@ public class AdminMemberController {
 	 * @return
 	 */
 	@GetMapping("/listupAdmin")
-	public String listupAdmin(Model model) {
+	public ModelAndView listupAdmin(ModelAndView mav) {
 		String nextPage = "admin/member/listup_admins";
 		
 		List<AdminMemberVo> adminMemberVos = adminMemberService.listupAdmin();
@@ -132,9 +132,11 @@ public class AdminMemberController {
 		 *   - name : 전달하려는 데이터의 이름
 		 *   - value : 실제 데이터 값
 		 */
-		model.addAttribute("adminMemberVos", adminMemberVos);
+		// model.addAttribute("adminMemberVos", adminMemberVos);
+		mav.setViewName(nextPage);
+		mav.addObject("adminMemberVos", adminMemberVos);
 		
-		return nextPage;
+		return mav;
 	}
 	
 	/**
