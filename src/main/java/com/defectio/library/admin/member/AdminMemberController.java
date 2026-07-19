@@ -128,7 +128,7 @@ public class AdminMemberController {
 		List<AdminMemberVo> adminMemberVos = adminMemberService.listupAdmin();
 		
 		/**
-		 * model 객체
+		 * model 객체 : 서버의 데이터를 뷰에 전달하는 역할 -> Model에 모든 관리자 정보를 저장해서 클라이언트로 전달한다.
 		 *   - name : 전달하려는 데이터의 이름
 		 *   - value : 실제 데이터 값
 		 */
@@ -138,7 +138,7 @@ public class AdminMemberController {
 	}
 	
 	/**
-	 * 관리자 승인 후 관리자 목록 redirect
+	 * 관리자 승인 후 관리자 목록을 갱신하기 위해서 페이지 redirect 
 	 */
 	@GetMapping("/setAdminApproval")
 	public String setAdminApproval(@RequestParam("a_m_no") int a_m_no) {

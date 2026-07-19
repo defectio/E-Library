@@ -78,7 +78,6 @@ public class AdminMemberService {
 	 * @param a_m_no
 	 */
 	public void setAdminApproval(int a_m_no) {
-//		int result = adminMemberDao.updateAdminAccount(a_m_no);
 		adminMemberDao.updateAdminAccount(a_m_no);
 	}
 	

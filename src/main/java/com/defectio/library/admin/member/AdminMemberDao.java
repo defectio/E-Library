@@ -195,11 +195,12 @@ public class AdminMemberDao {
 	 * @return
 	 */
 	public int updateAdminAccount(int a_m_no) {
-		String sql =  "UPDATE tbl_admin_member SET "
-					+ "a_m_approval = 1 "
-					+ "WHERE a_m_no = ?";
+		String sql = "UPDATE tbl_admin_member "
+				+ "SET a_m_approval = 1 "
+				+ "WHERE a_m_no = ?";
 		int result = -1;
 		try {
+			// 관리자의 a_m_approval 값을 업데이트
 			result = jdbcTemplate.update(sql, a_m_no);
 		} catch (Exception e) {
 			e.printStackTrace();
