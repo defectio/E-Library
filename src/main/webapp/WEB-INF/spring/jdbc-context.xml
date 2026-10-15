@@ -23,7 +23,7 @@
 	<!-- MySQL connection 객체 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/elibrary" />
+		<property name="url" value="jdbc:mysql://192.168.200.119:3306/elibrary" />
 		<property name="username" value="defectio" />
 		<property name="password" value="defectio!23" />
 	</bean>
