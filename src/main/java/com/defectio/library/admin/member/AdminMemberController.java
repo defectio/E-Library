@@ -61,7 +61,7 @@ public class AdminMemberController {
 	
 	/**
 	 * 로그인 확인
-	 *   - super_admin / p9AAISxf
+	 *   - super_admin / 1234
 	 * @param adminMemberVo
 	 * @return
 	 */
