@@ -1,0 +1,9 @@
+
+[main] : 메인 브랜치
+	ㄴ [develop] : 개발 브랜치
+		ㄴ [feature/login] : 로그인 기능 개발 브랜치 (26.10.16 feature/login-session merge 완료)
+			ㅇ feature/login-cookie : cookie 방식 로그인 기능 브랜치
+			ㅇ feature/login-session : session 방식 로그인 기능 브랜치 
+			ㅇ feature/LoginFilter : 로그인 필터 기능 개발용 브랜치(예정)
+			
+		ㄴ [feature/jsp]
