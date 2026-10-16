@@ -51,19 +51,17 @@ public class AdminMemberService {
 	}
 	
 	/**
-	 * 로그인 결과를 리턴함
+	 * DB에 일치하는 회원이 있는지 검색하여 AdminMemberVo를 리턴함(없으면 null 리턴)
 	 * @param adminMemberVo
 	 * @return
 	 */
 	public AdminMemberVo loginConfirm(AdminMemberVo adminMemberVo) {
 		AdminMemberVo loginedAdminMemberVo = adminMemberDao.selectAdmin(adminMemberVo);
 		
-		if (loginedAdminMemberVo != null) {  // 로그인 성공
-			System.out.println("ADMIN MEMBER LOGIN SUCCESS");
-		} else {  // 로그인 실패
-			System.out.println("ADMIN MEMBER LOGIN FAIL");
-		}
-		
+		/**
+		 * loginedAdminMemberVo : null이 아니면 회원, null이면 회원이 아님 
+		 *   -> loginConfirm()를 호출한 컨트롤러에서 null이 아닐 경우에 session에 저장하면됨
+		 */
 		return loginedAdminMemberVo;
 	}
 	

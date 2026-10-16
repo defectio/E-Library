@@ -11,12 +11,13 @@
 		if (loginedAdminMemberVo != null) {
 		%>
 		
+		<%-- 로그인 후 --%>
 		<div class="menu">
 			<ul>
 				<li><a href="<c:url value='/admin/member/logoutConfirm' />">로그아웃</a></li>
 				<li><a href="<c:url value='/admin/member/modifyAccountForm' />">계정수정</a></li>
 				
-				<c:if test="${loginedAdminMemberVo.a_m_id eq 'super admin'}">
+				<c:if test="${loginedAdminMemberVo.a_m_id eq 'super_admin'}">
 					<li><a href="<c:url value='/admin/member/listupAdmin' />">관리자목록</a></li>
 				</c:if>
 				
@@ -29,6 +30,7 @@
 		<%
 		} else {
 		%>
+		<%-- 로그인 전 --%>
 		<div class="menu">
 			<ul>
 				<li><a href="<c:url value='/admin/member/loginForm' />">로그인</a></li>

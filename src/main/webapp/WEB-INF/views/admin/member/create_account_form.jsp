@@ -18,6 +18,7 @@
 				<h3>CREATE ACCOUNT FORM</h3>
 			</div>
 			<div class="create_account_form">
+				<%-- submit() 시에 /admin/member/createAccountConfirm 컨트롤러 호출 --%>
 				<form action="<c:url value='/admin/member/createAccountConfirm' />" name="create_account_form" method="post">
 					<input type="text" name="a_m_id" placeholder="INPUT ADMIN ID."> <br>
 					<input type="password" name="a_m_pw" placeholder="INPUT ADMIN PW."> <br>
@@ -32,6 +33,7 @@
 					<input type="text" name="a_m_position" placeholder="INPUT ADMIN POSITION."> <br>
 					<input type="email" name="a_m_mail" placeholder="INPUT ADMIN MAIL." ><br>
 					<input type="text" name="a_m_phone" placeholder="INPUT ADMIN PHONE."> <br>
+					<%-- [create account] 버튼 클릭 시 createAccountForm() 실행 : form validate 체크 후 submit() 호출 --%>
 					<input type="button" value="create account" onclick="createAccountForm();"> 
 					<input type="reset" value="reset">	
 				</form>

@@ -21,9 +21,10 @@ public class AdminMemberController {
 	
 	/**
 	 * 회원 가입 페이지로 이동
+	 * 
+	 * @RequestMapping(value = "/createAccountForm", method = RequestMethod.GET) 와 동일 
 	 * @return
 	 */
-//	@RequestMapping(value = "/createAccountForm", method = RequestMethod.GET)
 	@GetMapping("/createAccountForm")
 	public String createAccountForm() {
 		String nextPage = "admin/member/create_account_form";
@@ -33,16 +34,17 @@ public class AdminMemberController {
 	/**
 	 * client에서 회원 가입 클릭 시 회원 가입 처리를 진행한다.
 	 * @param adminMemberVo
+	 * 
+	 * @RequestMapping(value = "/createAccountConfirm", method = RequestMethod.POST) 동
 	 * @return
 	 */
-//	@RequestMapping(value = "/createAccountConfirm", method = RequestMethod.POST)
-	// @RequestMapping과 method를 결합한 어노테이션
 	@PostMapping("/createAccountConfirm")
 	public String createAccountConfirm(AdminMemberVo adminMemberVo) {
 		String nextPage = "admin/member/create_account_ok";
 		
 		int result = adminMemberService.createAccountConfirm(adminMemberVo);
 		
+		// 이미 존재하는 ID or 회원가입 실패할 경우, 페이지 변경 
 		if (result <= 0)
 			nextPage = "admin/member/create_account_ng";
 		
@@ -60,14 +62,13 @@ public class AdminMemberController {
 	}
 	
 	/**
-	 * 로그인 확인
-	 *   - super_admin / 1234
+	 * 로그인 확인 - super_admin / 1234
 	 * @param adminMemberVo
+	 * @param session
 	 * @return
 	 */
 	@PostMapping("/loginConfirm")
 	public String loginConfirm(AdminMemberVo adminMemberVo, HttpSession session) {
-		
 		/**
 		 * 클라이언트에서 넘어오는 a_m_id, a_m_pw가 getter를 통해서 adminMemberVo에 저장됨
 		 * 클라이언트에서 넘어오지 않는 a_m_mail은 null이 저장됨
@@ -80,16 +81,16 @@ public class AdminMemberController {
 		
 		AdminMemberVo loginedAdminMemberVo = adminMemberService.loginConfirm(adminMemberVo);
 		
+		// 로그인 시도한 사용자가 없는 경우, 즉 회원이 아닌 경우 리턴 페이지 재정의
 		if (loginedAdminMemberVo == null) {
 			nextPage = "admin/member/login_ng";
 		} else {
-			// 로그인 성공 -> 세션에 로그인 정보 지정 (key - value)
 			session.setAttribute("loginedAdminMemberVo", loginedAdminMemberVo);
 			/**
-			 *  세션 유효기간(초) -> 30분
-			 *  즉, 브라우저가 30분동안 아무런 동작을 하지 않게 되면 서버의 세션은 종료되고 관리자는 다시 로그인 해야 한다.
+			 * 세션 유효기간 설정(초) : 30분
+			 * 브라우저가 30분 동안 아무런 동작을 하지 않게 되면 서버의 세션은 종료되고 관리자는 다시 로그인 해야한다.
 			 */
-			session.setMaxInactiveInterval(60 * 30);   
+			session.setMaxInactiveInterval(60 * 30); 
 		}
 		
 		return nextPage;

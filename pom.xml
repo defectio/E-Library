@@ -56,7 +56,7 @@
 		</dependency>
 		<!-- SPRING JDBC -->
 		
-		<!-- spring-security -->
+		<!-- spring-security : 데이터 암/복호화 모듈 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
